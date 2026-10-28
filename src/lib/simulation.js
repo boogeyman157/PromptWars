@@ -13,6 +13,7 @@ export const CONFIG = {
   BATTERY_ROUND_TRIP: 0.9,
   BATTERY_LCOS_INR: 6.2, // levelized cost of stored energy (wear + replacement)
   GRID_IMPORT_CAP_KW: 15,
+  CRITICAL_MARGIN_KW: 2.5, // tolerance for sensor jitter before flagging a cap breach
   TARIFF_PEAK_INR: 9.5,
   TARIFF_OFFPEAK_INR: 4.5,
   EXPORT_RATE_INR: 3.2,
@@ -154,7 +155,7 @@ export function computeGrid({ cloud, stress, soc, noise = { solar: 1, load: 1 } 
   );
 
   let status = 'optimal';
-  if (gridImport > CONFIG.GRID_IMPORT_CAP_KW + 0.5) status = 'critical';
+  if (gridImport > CONFIG.GRID_IMPORT_CAP_KW + CONFIG.CRITICAL_MARGIN_KW) status = 'critical';
   else if (shedKW > 0.05 || batteryLocked) status = 'balancing';
 
   return {
