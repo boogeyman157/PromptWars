@@ -1,5 +1,7 @@
 # GridMind: AI-Driven Micro-Grid Energy Distribution & Conservation Assistant
 
+**Live demo: https://boogeyman157.github.io/PromptWars/**
+
 GridMind is a digital twin of a campus micro-grid (solar PV, battery storage, campus load) run by an autonomous AI agent. The agent balances supply and demand in real time, shifts flexible load to cheap off-peak hours and explains every decision in a live terminal. An optional **Gemini** planner can take over load-shedding decisions, with the rule engine kept as a safety guardrail.
 
 ![GridMind dashboard](docs/screenshots/overview.png)
