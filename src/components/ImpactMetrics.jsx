@@ -38,7 +38,7 @@ export default function ImpactMetrics({ grid, totals }) {
           <Leaf className="h-4 w-4 text-emerald-400" /> Live Impact Metrics
         </h2>
         <p className="font-mono text-[11px] text-slate-500">
-          vs. unmanaged grid-only campus · ₹{CONFIG.TARIFF_PEAK_INR}/kWh peak · {CONFIG.EMISSION_FACTOR_KG_PER_KWH} kg CO₂/kWh · session {totals.minutes} sim-min
+          vs. unmanaged grid-only campus · {grid.tariff.label} tariff ₹{grid.tariff.rate}/kWh · {CONFIG.EMISSION_FACTOR_KG_PER_KWH} kg CO₂/kWh · session {totals.minutes} sim-min
         </p>
       </div>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">

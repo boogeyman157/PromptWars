@@ -63,7 +63,7 @@ function Bar({ pct, className }) {
 export function SolarCard({ grid }) {
   const outputPct = (grid.solarKW / CONFIG.SOLAR_PEAK_KW) * 100;
   const status =
-    outputPct > 65 ? <StatusPill tone="good">Peak Generation</StatusPill> : outputPct > 30 ? <StatusPill tone="warn">Reduced Output</StatusPill> : <StatusPill tone="bad">Low Irradiance</StatusPill>;
+    grid.daylight === 0 ? <StatusPill tone="info">Night · PV Offline</StatusPill> : outputPct > 65 ? <StatusPill tone="good">Peak Generation</StatusPill> : outputPct > 30 ? <StatusPill tone="warn">Reduced Output</StatusPill> : <StatusPill tone="bad">Low Irradiance</StatusPill>;
   return (
     <NodeCard tone="amber" node="Node A" title="Solar Generation" icon={Sun} status={status}>
       <div className="mb-1 flex items-baseline gap-1.5">
@@ -205,6 +205,14 @@ export function LoadCard({ grid }) {
           );
         })}
       </ul>
+      {(grid.evQueueKWh > 0.05 || grid.evNightKW > 0.05) && (
+        <p className="mt-3 flex animate-fade-in-up items-center gap-1.5 rounded-lg bg-indigo-500/10 px-2.5 py-1.5 text-[11px] text-indigo-200" data-testid="ev-queue">
+          <CarFront className="h-3.5 w-3.5 shrink-0" />
+          {grid.evNightKW > 0.05
+            ? `Charging deferred EV queue: ${grid.evNightKW.toFixed(1)} kW · ${grid.evQueueKWh.toFixed(1)} kWh left`
+            : `EV queue: ${grid.evQueueKWh.toFixed(1)} kWh deferred → 02:00 off-peak window`}
+        </p>
+      )}
     </NodeCard>
   );
 }

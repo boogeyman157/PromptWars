@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { fmtClock } from '../lib/simulation';
 import { Activity, AlertTriangle, BrainCircuit, RotateCcw, ShieldCheck, Zap } from 'lucide-react';
 
 const STATUS = {
@@ -25,15 +25,9 @@ const STATUS = {
   },
 };
 
-export default function Header({ status, onReset }) {
+export default function Header({ status, onReset, hour, tariff }) {
   const s = STATUS[status];
   const Icon = s.icon;
-  const [now, setNow] = useState(() => new Date());
-
-  useEffect(() => {
-    const id = setInterval(() => setNow(new Date()), 1000);
-    return () => clearInterval(id);
-  }, []);
 
   return (
     <header className="sticky top-0 z-30 border-b border-slate-800/80 bg-grid-950/80 backdrop-blur-xl">
@@ -73,7 +67,7 @@ export default function Header({ status, onReset }) {
           </div>
 
           <div className="hidden rounded-lg border border-slate-700/60 bg-grid-900/70 px-3 py-1.5 font-mono text-xs text-slate-300 lg:block">
-            {now.toLocaleTimeString('en-IN', { hour12: false })} IST
+            SIM {fmtClock(hour)} · {tariff.label} ₹{tariff.rate}/kWh
           </div>
 
           <button

@@ -1,5 +1,4 @@
 import { Cloud, CloudLightning, CloudSun, Flame, Gauge, SlidersHorizontal, Sun, Zap } from 'lucide-react';
-import { CONFIG } from '../lib/simulation';
 
 const PRESETS = [
   { label: 'Clear', value: 0, icon: Sun },
@@ -18,7 +17,7 @@ function weatherFor(cloud) {
 export default function ControlPanel({ cloud, onCloudChange, stress, onToggleStress, grid }) {
   const w = weatherFor(cloud);
   const WIcon = w.icon;
-  const supply = grid.solarKW + grid.batteryAvailKW + CONFIG.GRID_IMPORT_CAP_KW;
+  const supply = grid.solarKW + grid.batteryAvailKW + grid.importCap;
   const coverage = Math.min(100, (supply / grid.rawLoad) * 100);
 
   return (
@@ -155,7 +154,7 @@ export default function ControlPanel({ cloud, onCloudChange, stress, onToggleStr
           </div>
           <div>
             <dt className="text-slate-500">Import cap</dt>
-            <dd className="font-mono text-slate-200">{CONFIG.GRID_IMPORT_CAP_KW} kW</dd>
+            <dd className="font-mono text-slate-200">{grid.importCap} kW</dd>
           </div>
         </dl>
       </div>
