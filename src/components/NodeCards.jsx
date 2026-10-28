@@ -90,7 +90,7 @@ export function SolarCard({ grid }) {
           </div>
           <div className="rounded-lg bg-grid-850/80 p-2.5">
             <p className="stat-label">Irradiance</p>
-            <p className="font-mono text-lg font-semibold text-slate-100"><Num value={grid.irradiance * 1000} decimals={0} /><span className="text-xs text-slate-500"> W/m²</span></p>
+            <p className="font-mono text-lg font-semibold text-slate-100"><Num value={grid.irradiance * grid.daylight * 1000} decimals={0} /><span className="text-xs text-slate-500"> W/m²</span></p>
           </div>
         </div>
       </div>
